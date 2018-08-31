@@ -4,28 +4,17 @@ export default [
     path: '/',
     component: () => import('layouts/default'),
     children: [
-      { path: '', component: () => import('pages/index') }
+      { name : "home", path: '', component: () => import('pages/index') },
+      { name : "about", path: 'about', component: () => import('pages/about') }
+      
     ]
   },
   {
-    path: '/about',
-    component: () => import('layouts/default'),
+    path: '/auth',
+    component: () => import('layouts/auth'),
     children: [
-      { path: '', component: () => import('pages/about') }
-    ]
-  },
-  {
-    path: '/login',
-    component: () => import('layouts/default'),
-    children: [
-      { path: '', component: () => import('pages/login') }
-    ]
-  },
-  {
-    path: '/callback',
-    component: () => import('layouts/default'),
-    children: [
-      { path: '', component: () => import('pages/callback') }
+      { name: "login", path: 'login', component: () => import('pages/login') },
+      { name: "callback", path: 'callback', component: () => import('pages/callback') }      
     ]
   },
   { // Always leave this as last one

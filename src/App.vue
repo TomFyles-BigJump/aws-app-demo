@@ -19,10 +19,10 @@ export default {
     scope : ['phone', 'email', 'profile', 'openid','aws.cognito.signin.user.admin'], 
 
     // Callback URL
-    redirectSignIn : 'https://d23505dvd9ygmo.cloudfront.net/callback', 
+    redirectSignIn : 'https://d23505dvd9ygmo.cloudfront.net/auth/callback', 
     
     // Sign out URL
-    redirectSignOut : 'https://d23505dvd9ygmo.cloudfront.net/callback',
+    redirectSignOut : 'https://d23505dvd9ygmo.cloudfront.net/auth/callback',
 
     // 'code' for Authorization code grant, 
     // 'token' for Implicit grant
