@@ -1,0 +1,30 @@
+{
+  "name": "pre-flight-test",
+  "version": "1.0.19",
+  "description": "A pre flight test application",
+  "productName": "Pre Flight Test",
+  "cordovaId": "com.bigjump.preflighttest",
+  "author": "Tom",
+  "private": true,
+  "scripts": {
+    "test": "echo \"No test specified\" && exit 0"
+  },
+  "dependencies": {
+    "aws-amplify": "^1.0.8",
+    "axios": "^0.18.0",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "quasar-cli": "^0.16.0"
+  },
+  "engines": {
+    "node": ">= 8.9.0",
+    "npm": ">= 5.6.0",
+    "yarn": ">= 1.6.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
+}

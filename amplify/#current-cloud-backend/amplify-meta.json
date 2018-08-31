@@ -1,0 +1,72 @@
+{
+	"providers": {
+		"awscloudformation": {
+			"AuthRoleName": "relightest-20180831101311-authRole",
+			"UnauthRoleArn": "arn:aws:iam::314111440436:role/relightest-20180831101311-unauthRole",
+			"AuthRoleArn": "arn:aws:iam::314111440436:role/relightest-20180831101311-authRole",
+			"Region": "eu-west-1",
+			"DeploymentBucketName": "relightest-20180831101311-deployment",
+			"UnauthRoleName": "relightest-20180831101311-unauthRole",
+			"StackName": "relightest-20180831101311",
+			"StackId": "arn:aws:cloudformation:eu-west-1:314111440436:stack/relightest-20180831101311/154145b0-acfe-11e8-829c-503abe701c29"
+		}
+	},
+	"hosting": {
+		"S3AndCloudFront": {
+			"service": "S3AndCloudFront",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/hosting/template.json",
+				"logicalId": "hostingS3AndCloudFront"
+			},
+			"lastPushTimeStamp": "2018-08-31T13:45:21.954Z",
+			"output": {
+				"S3BucketSecureURL": "https://relightest-20180831101527--hostingbucket.s3.amazonaws.com",
+				"WebsiteURL": "http://relightest-20180831101527--hostingbucket.s3-website-eu-west-1.amazonaws.com",
+				"Region": "eu-west-1",
+				"HostingBucketName": "relightest-20180831101527--hostingbucket"
+			},
+			"lastPushDirHash": "Sufmwvxuvnp+y6wYf3rgx7PaMcs="
+		}
+	},
+	"auth": {
+		"cognito4f8fb41d": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/auth/cognito4f8fb41d-cloudformation-template.yml",
+				"logicalId": "authcognito4f8fb41d"
+			},
+			"lastPushTimeStamp": "2018-08-31T13:45:21.957Z",
+			"output": {
+				"IdentityPoolId": "eu-west-1:d641ba7c-0f12-4578-a228-cd5f06714b06",
+				"IdentityPoolName": "preflighttest_identitypool_0aaee1a3",
+				"AppClientSecret": "17d11aejrfjfe9bbgaeuc6ba05eh9fpulil6fuvghkukgorlf4dk",
+				"UserPoolId": "eu-west-1_g7qplgNtI",
+				"AppClientIDWeb": "4hql7tlv74h59oa7a9ro5ddrld",
+				"AppClientID": "78hdbjblplufol5hs4man7hnhv",
+				"UserPoolName": "cognito4f8fb41d_userpool_fcc8146a",
+				"FacebookWebClient": "874971296043766"
+			},
+			"lastPushDirHash": "sWXhuDU8txPRKhKCRGfYeV2Mnm0=",
+			"[object Object]": {}
+		}
+	},
+	"analytics": {
+		"preflighttest": {
+			"service": "Pinpoint",
+			"providerPlugin": "awscloudformation",
+			"providerMetadata": {
+				"s3TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"logicalId": "analyticspreflighttest"
+			},
+			"lastPushTimeStamp": "2018-08-31T13:45:21.956Z",
+			"output": {
+				"appName": "preflighttest",
+				"Region": "us-east-1",
+				"Id": "644e454a695f4ebbb44171da94667220"
+			},
+			"lastPushDirHash": "Y9uxgmPb7qFdRyrCY2rLnt8SATs="
+		}
+	}
+}

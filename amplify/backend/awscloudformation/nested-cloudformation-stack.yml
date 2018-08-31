@@ -1,0 +1,231 @@
+{
+	"AWSTemplateFormatVersion": "2010-09-09",
+	"Description": "Root stack for the Amplify AWS CloudFormation provider",
+	"Parameters": {
+		"DeploymentBucketName": {
+			"Description": "Name of the common deployment bucket provided by the parent stack",
+			"Type": "String",
+			"Default": "DeploymentBucket"
+		},
+		"AuthRoleName": {
+			"Type": "String",
+			"Default": "AuthRoleName"
+		},
+		"UnauthRoleName": {
+			"Type": "String",
+			"Default": "UnauthRoleName"
+		}
+	},
+	"Resources": {
+		"DeploymentBucket": {
+			"Type": "AWS::S3::Bucket",
+			"DeletionPolicy": "Retain",
+			"Properties": {
+				"BucketName": {
+					"Ref": "DeploymentBucketName"
+				}
+			}
+		},
+		"AuthRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Ref": "AuthRoleName"
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Sid": "",
+							"Effect": "Allow",
+							"Principal": {
+								"Federated": "cognito-identity.amazonaws.com"
+							},
+							"Action": "sts:AssumeRoleWithWebIdentity",
+							"Condition": {
+								"ForAnyValue:StringLike": {
+									"cognito-identity.amazonaws.com:amr": "authenticated"
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		"UnauthRole": {
+			"Type": "AWS::IAM::Role",
+			"Properties": {
+				"RoleName": {
+					"Ref": "UnauthRoleName"
+				},
+				"AssumeRolePolicyDocument": {
+					"Version": "2012-10-17",
+					"Statement": [
+						{
+							"Sid": "",
+							"Effect": "Allow",
+							"Principal": {
+								"Federated": "cognito-identity.amazonaws.com"
+							},
+							"Action": "sts:AssumeRoleWithWebIdentity",
+							"Condition": {
+								"ForAnyValue:StringLike": {
+									"cognito-identity.amazonaws.com:amr": "unauthenticated"
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		"hostingS3AndCloudFront": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/hosting/template.json",
+				"Parameters": {}
+			}
+		},
+		"authcognito4f8fb41d": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/auth/cognito4f8fb41d-cloudformation-template.yml",
+				"Parameters": {
+					"identityPoolName": "preflighttest_identitypool_0aaee1a3",
+					"allowUnauthenticatedIdentities": true,
+					"thirdPartyAuth": true,
+					"lambdaLogPolicy": "preflighttest_lambda_log_policy",
+					"openIdLambdaRoleName": "preflighttest_openid_lambda_role",
+					"openIdRolePolicy": "preflighttest_openid_pass_role_policy",
+					"openIdLambdaIAMPolicy": "preflighttest_openid_lambda_iam_policy",
+					"openIdLogPolicy": "preflighttest_openid_lambda_log_policy",
+					"userPoolName": "cognito4f8fb41d_userpool_fcc8146a",
+					"autoVerifiedAttributes": "phone_number",
+					"mfaConfiguration": "OFF",
+					"mfaTypes": "SMS Text Message",
+					"roleName": "cognito4f8fb41d_sns-role",
+					"roleExternalId": "cognito4f8fb41d_role_external_id",
+					"policyName": "cognito4f8fb41d-sns-policy",
+					"smsAuthenticationMessage": "Your authentication code is {####}",
+					"smsVerificationMessage": "Your verification code is {####}",
+					"emailVerificationSubject": "Your verification code",
+					"emailVerificationMessage": "Your verification code is {####}",
+					"defaultPasswordPolicy": false,
+					"passwordPolicyMinLength": 8,
+					"passwordPolicyCharacters": "Requires Lowercase,Requires Uppercase,Requires Numbers,Requires Symbols",
+					"requiredAttributes": "email,phone_number",
+					"userpoolClientName": "cognito4f8fb41d_app_client",
+					"userpoolClientGenerateSecret": true,
+					"userpoolClientRefreshTokenValidity": "30",
+					"userpoolClientReadAttributes": "email",
+					"mfaLambdaRole": "cognito4f8fb41d_totp_lambda_role",
+					"mfaLambdaLogPolicy": "cognito4f8fb41d_totp_lambda_log_policy",
+					"mfaPassRolePolicy": "cognito4f8fb41d_totp_pass_role_policy",
+					"mfaLambdaIAMPolicy": "cognito4f8fb41d_totp_lambda_iam_policy",
+					"userpoolClientLambdaRole": "cognito4f8fb41d_userpoolclient_lambda_role",
+					"userpoolClientLogPolicy": "cognito4f8fb41d_userpoolclient_lambda_log_policy",
+					"userpoolClientLambdaPolicy": "cognito4f8fb41d_userpoolclient_lambda_iam_policy",
+					"userpoolClientSetAttributes": false,
+					"resourceName": "cognito4f8fb41d",
+					"authSelections": "identityPoolAndUserPool",
+					"unAuthRoleName": "relightest-20180831101311-unauthRole",
+					"authRoleName": "relightest-20180831101311-authRole",
+					"unAuthRoleArn": "arn:aws:iam::314111440436:role/relightest-20180831101311-unauthRole",
+					"authRoleArn": "arn:aws:iam::314111440436:role/relightest-20180831101311-authRole",
+					"useDefault": "manual",
+					"authProviders": "graph.facebook.com",
+					"facebookAppId": "874971296043766",
+					"selectedParties": "{\"graph.facebook.com\":\"874971296043766\"}"
+				}
+			}
+		},
+		"analyticspreflighttest": {
+			"Type": "AWS::CloudFormation::Stack",
+			"Properties": {
+				"TemplateURL": "https://s3.amazonaws.com/relightest-20180831101311-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+				"Parameters": {
+					"appName": "preflighttest",
+					"roleName": "pinpointLambdaRoled0afcc41",
+					"cloudWatchPolicyName": "cloudWatchPolicyd0afcc41",
+					"pinpointPolicyName": "pinpointPolicyd0afcc41",
+					"authPolicyName": "pinpoint_amplify_d0afcc41",
+					"unauthPolicyName": "pinpoint_amplify_d0afcc41",
+					"authRoleName": "relightest-20180831101311-authRole",
+					"unauthRoleName": "relightest-20180831101311-unauthRole",
+					"IAMPrefix": "314111440436"
+				}
+			}
+		}
+	},
+	"Outputs": {
+		"Region": {
+			"Description": "CloudFormation provider root stack Region",
+			"Value": {
+				"Ref": "AWS::Region"
+			},
+			"Export": {
+				"Name": {
+					"Fn::Sub": "${AWS::StackName}-Region"
+				}
+			}
+		},
+		"StackName": {
+			"Description": "CloudFormation provider root stack ID",
+			"Value": {
+				"Ref": "AWS::StackName"
+			},
+			"Export": {
+				"Name": {
+					"Fn::Sub": "${AWS::StackName}-StackName"
+				}
+			}
+		},
+		"StackId": {
+			"Description": "CloudFormation provider root stack name",
+			"Value": {
+				"Ref": "AWS::StackId"
+			},
+			"Export": {
+				"Name": {
+					"Fn::Sub": "${AWS::StackName}-StackId"
+				}
+			}
+		},
+		"DeploymentBucketName": {
+			"Description": "CloudFormation provider root stack deployment bucket name",
+			"Value": {
+				"Ref": "DeploymentBucketName"
+			},
+			"Export": {
+				"Name": {
+					"Fn::Sub": "${AWS::StackName}-DeploymentBucketName"
+				}
+			}
+		},
+		"AuthRoleArn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"AuthRole",
+					"Arn"
+				]
+			}
+		},
+		"UnauthRoleArn": {
+			"Value": {
+				"Fn::GetAtt": [
+					"UnauthRole",
+					"Arn"
+				]
+			}
+		},
+		"AuthRoleName": {
+			"Value": {
+				"Ref": "AuthRole"
+			}
+		},
+		"UnauthRoleName": {
+			"Value": {
+				"Ref": "UnauthRole"
+			}
+		}
+	}
+}

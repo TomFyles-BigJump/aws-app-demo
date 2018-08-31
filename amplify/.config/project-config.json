@@ -1,0 +1,20 @@
+{
+    "projectName": "PreFlightTest",
+    "projectPath": "/Users/bigjump/projects/RANDD/PreFlightTest",
+    "defaultEditor": "code",
+    "frontendHandler": {
+        "javascript": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "vue",
+        "config": {
+            "SourceDir": "src",
+            "DistributionDir": "dist/pwa-mat",
+            "BuildCommand": "quasar build -m pwa",
+            "StartCommand": "quasar run dev"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/usr/local/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}

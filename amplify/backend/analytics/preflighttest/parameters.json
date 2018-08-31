@@ -1,0 +1,11 @@
+{
+    "appName": "preflighttest",
+    "roleName": "pinpointLambdaRoled0afcc41",
+    "cloudWatchPolicyName": "cloudWatchPolicyd0afcc41",
+    "pinpointPolicyName": "pinpointPolicyd0afcc41",
+    "authPolicyName": "pinpoint_amplify_d0afcc41",
+    "unauthPolicyName": "pinpoint_amplify_d0afcc41",
+    "authRoleName": "relightest-20180831101311-authRole",
+    "unauthRoleName": "relightest-20180831101311-unauthRole",
+    "IAMPrefix": "314111440436"
+}
